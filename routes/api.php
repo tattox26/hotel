@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::apiResource('hotels', HotelController::class);
+Route::apiResource('hotels', 'App\Http\Controllers\HotelController');
+Route::get('acomodacion', 'App\Http\Controllers\HotelController@acomodacion')->name('acomodacion');   
+Route::get('tipo_habitacion', 'App\Http\Controllers\HotelController@tipo_habitacion')->name('tipo_habitacion');
+//Route::apiResource('habitaciones', HabitacionController::class);
