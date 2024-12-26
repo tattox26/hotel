@@ -39,7 +39,7 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // validacion de los campos
         $request->validate([
             'nombre' => 'required|string|unique:hotels',
             'direccion' => 'required|string',
@@ -48,8 +48,10 @@ class HotelController extends Controller
             'numero_habitaciones' => 'required|integer',
         ]);         
 
-        try {            
+        try {        
+            // Se guarda primero los datos del hotel    
             $hotel_id = Hotel::create($request->all());
+            // despues de obtener el id se almacena el tipo, acomodacion y la cantidad del hotel
             foreach ($request->habitacionTipos as $key => $value) {
                 $tipo_habitacion_id = TipoHabitacion::where('nombre',$value['tipo'])->pluck('id')->first();            
                 $acomodacion_id = Acomodacion::where('nombre',$value['acomodacion'])->pluck('id')->first();                
@@ -112,6 +114,7 @@ class HotelController extends Controller
     }
 
     public function acomodacion(){
+        //muestra todas las acomodaciones
         try {
             return Acomodacion::all();
         } catch (\Throwable $th) {
@@ -119,7 +122,8 @@ class HotelController extends Controller
         }        
     }
 
-    public function tipo_habitacion(){        
+    public function tipo_habitacion(){   
+        //muestra todos los tipos de habitaciones     
         try {
             return TipoHabitacion::all();
         } catch (\Throwable $th) {
